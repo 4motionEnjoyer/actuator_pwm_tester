@@ -59,8 +59,6 @@ void pwm_output()
 void setup()
 {
   DDRB = 0x02;    //in build led is portb 5, d13 as output
-
-  
 }
 void loop()
 {  
