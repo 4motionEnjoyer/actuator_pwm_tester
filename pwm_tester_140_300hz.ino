@@ -1,11 +1,10 @@
-
-
 /*------------------------------------------------------------
  * PWM Tester software, ~140hz and ~300hz. 
  * Author: Leevi Sulonen - ST Solutions
  * 
  * Used to test turbo actuators which use pwm as input signal.
  ------------------------------------------------------------*/
+
 #include <StopwatchLib.h>
 #include <avr/io.h>
 #include <avr/delay.h>
@@ -70,6 +69,5 @@ void loop()
   init_times(hz140_period_us);
 
   pwm_output();
-
     
 }
