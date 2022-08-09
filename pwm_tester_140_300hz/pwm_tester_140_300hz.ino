@@ -53,10 +53,7 @@ void loop()
 
   
   while(secondHalves < 20)     //ten seconds
-  { 
-    Serial.println("Time on 300hz");   
-    Serial.println(time_on_300hz[dutyswitch]);
-    
+  {     
     if(frequency == 300)
     {
       PORTB = B00010000;
