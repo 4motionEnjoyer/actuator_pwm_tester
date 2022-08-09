@@ -8,7 +8,7 @@
 
 const float pulseduties[9] = {10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0};
 double time_on_300hz[9] = {333, 666, 1000, 1333, 1666, 2000, 2333, 2666, 3000};               //microseconds for 10 ... 90 % pulse duty 
-double time_on_140hz[9] = {7142, 14285, 21428, 28571, 35714, 42857, 50000, 57142, 64285};
+double time_on_140hz[9] = {714, 1428, 2142, 2857, 3571, 4285, 5000, 5714, 6428};
 
 int halfSecondPeriods = 0;
 float secondHalves = 0;
@@ -18,11 +18,9 @@ int frequency = 140;
 
 void setup()
 {
-  //DDRB = 0x04;    //in build led is portb 5, d13 as output
   Serial.begin(9600);
   DDRB = B00110001;       //d13 as indicator, d8 as pwm out
-  //pinMode(13, OUTPUT);
-  //pinMode(12, OUTPUT);
+
 }
 
 
@@ -56,7 +54,7 @@ void loop()
   
   while(secondHalves < 20)     //ten seconds
   { 
-    Serial.println("Time on");   
+    Serial.println("Time on 300hz");   
     Serial.println(time_on_300hz[dutyswitch]);
     
     if(frequency == 300)
@@ -66,9 +64,9 @@ void loop()
       while(halfSecondPeriods < 150) //half of a second @ 300hz
       {
         PORTB = B00000001;
-        delayMicroseconds(int(0.98 * time_on_300hz[dutyswitch]));
+        delayMicroseconds(double(time_on_300hz[dutyswitch]));
         PORTB = 0;
-        delayMicroseconds(int(0.98 * time_on_300hz[8 - dutyswitch]));
+        delayMicroseconds(double(time_on_300hz[8 - dutyswitch]));
         halfSecondPeriods++;
       }
     }
@@ -84,9 +82,11 @@ void loop()
       while(halfSecondPeriods < 70) //half of a second @ 140hz
       {
         PORTB = B00000001;
-        delayMicroseconds(int(0.98 * time_on_140hz[dutyswitch]));
+        delayMicroseconds( double(time_on_140hz[dutyswitch]));
         PORTB = 0;
-        delayMicroseconds(int(0.98 * time_on_140hz[8 - dutyswitch]));
+        delayMicroseconds( double(time_on_140hz[8 - dutyswitch]));
+
+        
         halfSecondPeriods++;
       }
     }
@@ -101,7 +101,7 @@ void loop()
   }
   secondHalves = 0;
   halfSecondPeriods = 0;
-
+  dutyswitch = 0;
     
   delay(1000);
   
